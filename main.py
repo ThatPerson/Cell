@@ -52,7 +52,7 @@ genome = [ # an array of all proteins present in the cell - ie NaK ATPase, RuBis
     },
     {
         "name": "3-Phospho-Glycerate Kinase",
-        "in": ["ADP", "1-3-P-D-GLYCERATE"],
+        "in": ["ADP", "1,3-P-D-GLYCERATE"],
         "out": ["ATP", "3-P-D-GLYCERATE"],
         "abundance": 7,
         "reversible": True
@@ -148,9 +148,10 @@ for i in range(0, 1000): # Cycles to run for
     new_cell_mix = []
     for p in cell_mix:
         s = find_enzyme(p)
-        print(s["name"])
+        
         if (s != -1):
             if (p in s["in"]):
+              #  print(s["name"] + " FORWARD")
                 cont = 1
                 for d in s["in"]:
                     if d not in cell_mix:
@@ -161,6 +162,7 @@ for i in range(0, 1000): # Cycles to run for
                     for o in s["out"]:
                         new_cell_mix.append(o)
             elif (p in s["out"]):
+               # print(s["name"] + " BACKWARD")
                 cont = 1
                 for d in s["out"]:
                     if d not in cell_mix:
